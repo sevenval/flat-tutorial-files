@@ -1,0 +1,16 @@
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: GitHub Search API
+host: api.github.com
+schemes:
+  - https
+paths:
+  /search/code:
+    get:
+      parameters:
+        - name: q
+          in: query
+          required: true
+          type: string
+          pattern: .

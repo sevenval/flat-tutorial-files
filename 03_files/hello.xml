@@ -1,0 +1,10 @@
+<flow>
+  <copy in="{concat('./files/', $request/params/language, '.json')}" out="$json"/>
+
+  <if test="$json">
+    <dump in="$json"/>
+  </if>
+  <else>
+    <echo mime="application/json" status="404">{"error": "Unknown language."}</echo>
+  </else>
+</flow>

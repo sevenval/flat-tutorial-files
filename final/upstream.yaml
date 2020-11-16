@@ -1,0 +1,31 @@
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: GitHub Search API
+host: api.github.com
+schemes:
+  - https
+paths:
+  /search/code:
+    get:
+      parameters:
+        - name: q
+          in: query
+          required: true
+          type: string
+          pattern: ^hello repo:leachim6/hello-world filename:\w+ language:\w+$
+      produces:
+        - application/json
+      responses:
+        200:
+          description: GitHub code search results
+          schema:
+            type: object
+            required:
+              - total_count
+              - items
+            properties:
+              total_count:
+                type: integer
+              items:
+                type: array

@@ -1,0 +1,32 @@
+<flow>
+  <if test="$request/get/mock or $request/headers/mock">
+    <!-- Use mock.json when requested for example with "?mock" or the header "Mock: 1" -->
+    <copy in="files/mock.json"/>
+  </if>
+  <else>
+
+    <request>
+      {
+        "url" : {{ concat("https://api.github.com/search/code",
+                          "?q=hello",
+                          "+repo:leachim6/hello-world",
+                          "+filename:", $request/params/language,
+                          "+language:", $request/params/language) }}
+      }
+    </request>
+  </else>
+
+  <template out="$url">{{ items/value[1]/html_url ?? "" }}</template>
+
+  <if test="$url">
+    <template in="$url" out="$url">
+     {{ concat('https://raw.githubusercontent.com/leachim6/hello-world',
+               substring-after(., '/blob'))
+     }}
+    </template>
+    <template in="$url">{"url": {{ . }}}</template>
+  </if>
+  <else>
+    <echo mime="application/json" status="404">{"error": "Unknown language."}</echo>
+  </else>
+</flow>

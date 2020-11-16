@@ -1,0 +1,16 @@
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: Hello World!
+x-flat-validate:
+  request: true
+paths:
+  /{language}:
+    get:
+      x-flat-flow: hello.xml
+      parameters:
+        - name: language
+          in: path
+          required: true
+          type: string
+          pattern: ^[a-zA-Z0-9]+$

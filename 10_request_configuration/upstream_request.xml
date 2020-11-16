@@ -1,0 +1,17 @@
+<flow>
+  <template out="$query_parameters">
+    [
+      "q=hello",
+      "repo:leachim6/hello-world",
+      {{ concat("filename:", $request/params/language) }},
+      {{ concat("language:", $request/params/language) }}
+    ]
+  </template>
+
+  <request>
+    {
+      "url": "https://api.github.com/search/code",
+      "query": {{ join(" ", $query_parameters) }}
+    }
+  </request>
+</flow>

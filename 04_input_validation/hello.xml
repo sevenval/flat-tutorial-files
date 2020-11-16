@@ -1,0 +1,14 @@
+<flow>
+  <if test="not(matches($request/params/language, '^[a-zA-Z0-9]+$'))">
+    <echo mime="application/json" status="400">{"error": "Input validation failed!"}</echo>
+  </if>
+
+  <copy in="{concat('./files/', $request/params/language, '.json')}" out="$json"/>
+
+  <if test="$json">
+    <dump in="$json"/>
+  </if>
+  <else>
+    <echo mime="application/json" status="404">{"error": "Unknown language."}</echo>
+  </else>
+</flow>

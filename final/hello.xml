@@ -1,0 +1,22 @@
+<flow>
+  <if test="$request/get/mock or $request/headers/mock">
+    <!-- Use mock.json when requested for example with "?mock" or the header "Mock: 1" -->
+    <copy in="files/mock.json"/>
+  </if>
+  <else>
+    <sub-flow src="upstream_request.xml"/>
+  </else>
+
+  <template out="$count">{{ total_count ?? 0 }}</template>
+
+  <if test="$count = 0">
+    <echo mime="application/json" status="404">{"error": "Unknown language."}</echo>
+  </if>
+
+  <template>
+    {{$repo_url  := "https://raw.githubusercontent.com/leachim6/hello-world" }}
+    {{$file_path := substring-after(items/value[1]/html_url, '/blob') }}
+
+    {"url": {{ concat($repo_url, $file_path) }}}
+  </template>
+</flow>

@@ -1,0 +1,11 @@
+<flow>
+  <if test="$request/params/language = 'json'">
+    <echo mime="application/json">{"code": "{\"Hello\":\"World\"}"}</echo>
+  </if>
+  <elseif test="$request/params/language = 'css'">
+    <echo mime="application/json">{"code": "body:before {content: 'Hello World'}"}</echo>
+  </elseif>
+  <else>
+    <echo mime="application/json" status="404">{"code": "???"}</echo>
+  </else>
+</flow>

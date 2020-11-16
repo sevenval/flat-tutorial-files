@@ -1,0 +1,32 @@
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: Hello World!
+x-flat-validate:
+  request: true
+  response: true
+x-flat-error:
+  flow: error.xml
+paths:
+  /{language}:
+    get:
+      x-flat-flow: hello.xml
+      parameters:
+        - name: language
+          in: path
+          required: true
+          type: string
+          pattern: ^[a-zA-Z0-9]+$
+      produces:
+        - application/json
+      responses:
+        200:
+          description: URL to a "Hello World" snippet
+          schema:
+            type: object
+            required:
+              - url
+            properties:
+              url:
+                type: string
+                pattern: ^https://raw.githubusercontent.com/

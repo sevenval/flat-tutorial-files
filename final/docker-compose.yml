@@ -1,0 +1,12 @@
+version: '3'
+services:
+  flat:
+    image: sevenvaltechnologies/flatrunner:latest
+    container_name: flat-tutorial-8080
+    ports:
+    - 8080:8080
+    environment:
+    - FLAT_DEBUG=:debug:log 
+    - FLAT_DEBUG_ALLOW_HEADER=true
+    volumes:
+    - .:/app

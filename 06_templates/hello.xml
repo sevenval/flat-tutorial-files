@@ -1,0 +1,14 @@
+<flow>
+  <!-- ⬇ ⬇ ⬇ -->
+  <copy in="files/mock.json"/>
+
+  <template out="$url">{{ items/value[1]/html_url ?? "" }}</template>
+
+  <if test="$url">
+    <template in="$url">{"url": {{ . }}}</template>
+  </if>
+  <!-- ⬆ ⬆ ⬆ -->
+  <else>
+    <echo mime="application/json" status="404">{"error": "Unknown language."}</echo>
+  </else>
+</flow>
